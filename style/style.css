@@ -1,0 +1,11 @@
+.minefield {
+  border: 1px solid black;
+}
+
+.minefield td {
+  padding: 10px;
+}
+
+.minecell-0 {
+  background-color: grey;
+}
