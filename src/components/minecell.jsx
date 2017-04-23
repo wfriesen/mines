@@ -5,17 +5,23 @@ class MineCell extends Component {
     super(props);
 
     this.state = {
-      surrounding_mines: props.surrounding_mines
+      surrounding_mines: props.cell.surrounding_mines,
+      covered: props.cell.covered
     }
   }
 
   handleClick() {
-    this.setState({surrounding_mines: '?'});
+    if ( this.state.surrounding_mines == 9 ) {
+      alert('Game over');
+    }
+    this.setState({covered: false});
   }
 
   render() {
     return (
-      <td className={'minecell-' + this.state.surrounding_mines} onClick={() => this.handleClick()} >
+      <td
+        className={`${this.state.covered ? 'covered' : 'uncovered'} minecell minecell-${this.state.surrounding_mines}`}
+        onClick={() => this.handleClick()} >
         {this.state.surrounding_mines}
       </td>
     );

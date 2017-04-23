@@ -6,6 +6,15 @@
   padding: 10px;
 }
 
-.minecell-0 {
+.covered {
   background-color: grey;
+  color: grey;
+}
+
+.uncovered {
+  background-color: white;
+}
+
+.minecell-9.uncovered {
+  background-color: red;
 }

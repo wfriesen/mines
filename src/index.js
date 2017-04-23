@@ -15,7 +15,6 @@ class App extends Component {
   generateBoard() {
     const BOARD_HEIGHT = 8;
     const BOARD_WIDTH = 8;
-    const CELL_COUNT = BOARD_HEIGHT * BOARD_WIDTH;
     const MINE_COUNT = 10;
 
     // Generate initial, empty board
@@ -23,7 +22,10 @@ class App extends Component {
     for (var i=0; i<BOARD_HEIGHT; i++) {
       var row = []
       for (var j=0; j<BOARD_WIDTH; j++) {
-        row.push(0);
+        row.push({
+          surrounding_mines: 0,
+          covered: true
+        });
       }
       board.push(row);
     }
@@ -32,10 +34,40 @@ class App extends Component {
     for (var i=0; i<MINE_COUNT; i++) {
       var row = Math.floor(Math.random() * BOARD_HEIGHT);
       var column = Math.floor(Math.random() * BOARD_WIDTH);
-      if ( board[row][column] == 0) {
-        board[row][column] = 9;
+      if ( board[row][column].surrounding_mines == 0) {
+        board[row][column].surrounding_mines = 9;
       } else {
         i--;
+      }
+    }
+
+    const isMine = (row, column) => {
+      if ( board[row] != undefined && board[row][column] != undefined ) {
+        return (board[row][column].surrounding_mines == 9);
+      }
+      else return false;
+    }
+
+    for (var i=0; i<BOARD_HEIGHT; i++) {
+      for (var j=0; j<BOARD_WIDTH; j++) {
+        if ( board[i][j].surrounding_mines == 9 ) {
+          continue;
+        }
+
+        [
+          [i-1, j-1],
+          [i-1, j],
+          [i-1, j+1],
+          [i, j-1],
+          [i, j+1],
+          [i+1, j-1],
+          [i+1, j],
+          [i+1, j+1]
+        ].forEach((item) => {
+          if ( isMine(item[0], item[1]) ) {
+            board[i][j].surrounding_mines++;
+          }
+        });
       }
     }
 

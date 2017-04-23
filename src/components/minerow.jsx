@@ -8,7 +8,7 @@ class MineRow extends Component {
     this.state = {
       cells: props.row.map((cell, index) => {
         return (
-          <MineCell surrounding_mines={cell} key={index} />
+          <MineCell cell={cell} key={index} />
         );
       })
     }
