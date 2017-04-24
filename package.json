@@ -7,7 +7,7 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
   },
   "author": "William Friesen <wfriesen@gmail.com>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
