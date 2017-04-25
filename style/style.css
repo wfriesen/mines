@@ -18,3 +18,7 @@
 .minecell-9.uncovered {
   background-color: red;
 }
+
+.flagged {
+  background-color: blue;
+}

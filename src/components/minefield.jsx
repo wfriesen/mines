@@ -14,6 +14,7 @@ class MineField extends Component {
       for (var j=0; j<this.props.width; j++) {
         cells.push({
           covered: true,
+          flag: false,
           surrounding_mines: 0
         })
       }
@@ -73,15 +74,26 @@ class MineField extends Component {
 
   uncoverCell (row, column) {
     const field = this.state.field;
-    field[row][column].covered = false;
-    if ( field[row][column].surrounding_mines == 0 ) {
-      this.getSurroundingCells(row, column).forEach((cell) => {
-        if ( field[cell[0]][cell[1]].covered ) {
-          this.uncoverCell(cell[0], cell[1]);
-        }
-      });
+    if ( !field[row][column].flag ) {
+      field[row][column].covered = false;
+      if ( field[row][column].surrounding_mines == 0 ) {
+        this.getSurroundingCells(row, column).forEach((cell) => {
+          if ( field[cell[0]][cell[1]].covered ) {
+            this.uncoverCell(cell[0], cell[1]);
+          }
+        });
+      }
+      this.setState({field});
     }
-    this.setState({field});
+  }
+
+  flagCell (e, row, column) {
+    e.preventDefault();
+    const field = this.state.field;
+    if ( field[row][column].covered ) {
+      field[row][column].flag = !field[row][column].flag;
+      this.setState({field});
+    }
   }
 
   render() {
@@ -90,7 +102,16 @@ class MineField extends Component {
       var cells = [];
       for (var j=0; j<this.state.field[i].length; j++) {
         cells.push(
-          <MineCell key={j} covered={this.state.field[i][j].covered} onClick={this.uncoverCell.bind(this)} row={i} column={j} surrounding_mines={this.state.field[i][j].surrounding_mines} />
+          <MineCell
+            key={j}
+            covered={this.state.field[i][j].covered}
+            flag={this.state.field[i][j].flag}
+            onContextMenu={this.flagCell.bind(this)}
+            onClick={this.uncoverCell.bind(this)}
+            row={i}
+            column={j}
+            surrounding_mines={this.state.field[i][j].surrounding_mines}
+          />
         )
       }
       rows.push(
