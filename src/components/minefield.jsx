@@ -47,9 +47,7 @@ class MineField extends Component {
       }
     }
     
-    this.state = {
-      field: field
-    }
+    this.state = {field}
   }
 
   getSurroundingCells(row, column) {
