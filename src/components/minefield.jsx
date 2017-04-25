@@ -72,7 +72,7 @@ class MineField extends Component {
 
   uncoverCell (row, column) {
     const field = this.state.field;
-    if ( !field[row][column].flag ) {
+    if ( field[row][column].covered && !field[row][column].flag ) {
       field[row][column].covered = false;
       if ( field[row][column].surrounding_mines == 0 ) {
         this.getSurroundingCells(row, column).forEach((cell) => {
