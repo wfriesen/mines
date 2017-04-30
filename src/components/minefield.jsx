@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MineRow from './minerow.jsx'
 import MineCell from './minecell.jsx'
 
 class MineField extends Component {
@@ -113,7 +112,9 @@ class MineField extends Component {
         )
       }
       rows.push(
-        <MineRow key={i} width={this.props.width} cells={cells} />
+        <tr>
+          {cells}
+        </tr>
       )
     }
 
