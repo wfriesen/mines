@@ -12,7 +12,7 @@ table {
 }
 
 .covered {
-  background-color: grey;
+  background-color: darkgrey;
   color: grey;
 }
 
@@ -20,18 +20,19 @@ table {
   background-color: lightgrey;
 }
 
-span.minecell.covered {
-  visibility: hidden;
+.fa-flag {
+  color: black;
 }
 
-span.minecell.uncovered {
-  visibility: visible;
+.fa-bomb {
+  color: darkred;
 }
 
 .minecell-9.uncovered {
   background-color: red;
 }
 
-.flagged {
-  background-color: blue;
+.minebutton {
+  width: 32px;
+  height: 32px;
 }

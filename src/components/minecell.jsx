@@ -8,8 +8,19 @@ class MineCell extends Component {
 
   render() {
     const minecellClass = 'minecell-' + this.props.surrounding_mines;
-    const flagClass = this.props.flag ? 'flagged': '';
     const coveredClass = this.props.covered ? 'covered' : 'uncovered';
+
+    let mineCount = '';
+    let iconClass = '';
+    if ( this.props.flag ) {
+      iconClass = 'fa fa-flag';
+    } else if ( !this.props.covered ) {
+      if ( this.props.surrounding_mines == 9 ) {
+        iconClass = 'fa fa-bomb';
+      } else {
+        mineCount = this.props.surrounding_mines;
+      }
+    }
 
     return (
       <td
@@ -17,12 +28,10 @@ class MineCell extends Component {
         onClick={() => this.props.onClick(this.props.row, this.props.column)}
       >
         <button
-          className={`${coveredClass} ${flagClass} ${minecellClass}`}
+          className={`minebutton ${coveredClass} ${iconClass} ${minecellClass}`}
           disabled={!this.props.covered}
           >
-          <span className={`minecell ${coveredClass}`}>
-            {this.props.surrounding_mines}
-          </span>
+          { mineCount }
         </button>
       </td>
     );
