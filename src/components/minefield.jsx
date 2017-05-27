@@ -112,7 +112,7 @@ class MineField extends Component {
         )
       }
       rows.push(
-        <tr>
+        <tr key={i}>
           {cells}
         </tr>
       )
