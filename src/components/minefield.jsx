@@ -45,7 +45,7 @@ class MineField extends Component {
         });
       }
     }
-    
+
     this.state = {field}
   }
 
