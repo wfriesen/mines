@@ -6,6 +6,11 @@ class MineField extends Component {
   constructor(props) {
     super(props);
 
+    const field = this.generateField();
+    this.state = {field}
+  }
+
+  generateField() {
     // Generate initial, empty field
     var field = [];
     for (var i=0; i<this.props.height; i++) {
@@ -46,7 +51,7 @@ class MineField extends Component {
       }
     }
 
-    this.state = {field}
+    return field;
   }
 
   getSurroundingCells(row, column) {
