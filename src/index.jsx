@@ -8,8 +8,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      board_height: 8,
-      board_width: 8,
+      height: 8,
+      width: 8,
       mine_count: 10
     }
   }
@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div>
         <h1>Mines</h1>
-        <MineField height={this.state.board_height} width={this.state.board_width} mines={this.state.mine_count} />
+        <MineField height={this.state.height} width={this.state.width} mines={this.state.mine_count} />
       </div>
     );
   }
