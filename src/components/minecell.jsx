@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class MineCell extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {

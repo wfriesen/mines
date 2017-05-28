@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MineField from './components/minefield.jsx';
+import '../node_modules/font-awesome/css/font-awesome.min.css'
 
 class App extends Component {
 
