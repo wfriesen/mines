@@ -28,10 +28,6 @@ table {
   color: darkred;
 }
 
-.minecell-9.uncovered {
-  background-color: red;
-}
-
 .minebutton {
   width: 32px;
   height: 32px;

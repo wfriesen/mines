@@ -7,7 +7,6 @@ class MineCell extends Component {
   }
 
   render() {
-    const minecellClass = 'minecell-' + this.props.surrounding_mines;
     const coveredClass = this.props.covered ? 'covered' : 'uncovered';
 
     let mineCount = '';
@@ -28,7 +27,7 @@ class MineCell extends Component {
         onClick={() => this.props.onClick(this.props.row, this.props.column)}
       >
         <button
-          className={`minebutton ${coveredClass} ${iconClass} ${minecellClass}`}
+          className={`minebutton ${coveredClass} ${iconClass}`}
           disabled={!this.props.covered}
           >
           { mineCount }
