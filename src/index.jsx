@@ -113,10 +113,49 @@ class App extends Component {
     });
   }
 
+  changeHeight(new_height) {
+    const height = parseInt(new_height);
+    if ( !isNaN(height) ) {
+      const field = this.generateField(height, this.state.width, this.state.mine_count);
+      this.setState({ height, field });
+    }
+  }
+
+  changeWidth(new_width) {
+    const width = parseInt(new_width);
+    if ( !isNaN(width) ) {
+      const field = this.generateField(this.state.height, width, this.state.mine_count);
+      this.setState({ width, field });
+    }
+  }
+
+  changeMineCount(new_mine_count) {
+    const mine_count = parseInt(new_mine_count);
+    if ( !isNaN(mine_count) ) {
+      const field = this.generateField(this.state.height, this.state.width, mine_count);
+      this.setState({ mine_count, field });
+    }
+  }
+
   render() {
     return (
       <div>
         <h1 onClick={() => this.restart()}>Mines</h1>
+        <input
+          type="text"
+          value={this.state.height}
+          onChange={(e) => this.changeHeight(e.target.value)}
+        />
+        <input
+          type="text"
+          value={this.state.width}
+          onChange={(e) => this.changeWidth(e.target.value)}
+        />
+        <input
+          type="text"
+          value={this.state.mine_count}
+          onChange={(e) => this.changeMineCount(e.target.value)}
+        />
         <MineField
           height={this.state.height}
           width={this.state.width}
