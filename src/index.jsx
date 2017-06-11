@@ -116,14 +116,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 onClick={this.restart.bind(this)}>Mines</h1>
+        <h1 onClick={() => this.restart()}>Mines</h1>
         <MineField
           height={this.state.height}
           width={this.state.width}
           mines={this.state.mine_count}
           field={this.state.field}
-          uncoverCell={this.uncoverCell.bind(this)}
-          flagCell={this.flagCell.bind(this)}
+          uncoverCell={(row, column) => this.uncoverCell(row, column)}
+          flagCell={(e, row, column) => this.flagCell(e, row, column)}
         />
       </div>
     );
