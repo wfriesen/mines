@@ -61,8 +61,7 @@ class App extends Component {
   }
 
   getSurroundingCells(row, column, height, width) {
-    const cells = [];
-    [
+    return [
       [row-1, column-1],
       [row-1, column],
       [row-1, column+1],
@@ -71,12 +70,14 @@ class App extends Component {
       [row+1, column-1],
       [row+1, column],
       [row+1, column+1]
-    ].forEach((cell) => {
-      if (cell[0] >= 0 && cell[1] >= 0 && cell[0] < height && cell[1] < width) {
-        cells.push([cell[0], cell[1]]);
-      }
+    ].filter(([surroundingRow, surroundingColumn]) => {
+      return (
+        surroundingRow >= 0 &&
+        surroundingColumn >= 0 &&
+        surroundingRow < height &&
+        surroundingColumn < width
+      );
     });
-    return cells;
   }
 
   updateTimer() {
