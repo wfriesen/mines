@@ -10,14 +10,10 @@ class App extends Component {
     const height = 8;
     const width = 8;
     const mine_count = 10;
+    const gameOn = false;
     const field = this.generateField(height, width, mine_count);
 
-    this.state = {
-      height,
-      width,
-      mine_count,
-      field
-    };
+    this.state = { height, width, mine_count, gameOn, field };
   }
 
   generateField(height, width, mines) {
@@ -83,7 +79,24 @@ class App extends Component {
     return cells;
   }
 
+  updateTimer() {
+    const now = new Date().getTime();
+    const time = Math.trunc((now - this.state.startTime) / 1000);
+    this.setState({time});
+  }
+
+  startGame() {
+    if ( !this.state.gameOn ) {
+      const gameOn = true;
+      const startTime = new Date().getTime();
+      const timerInterval = setInterval(() => {this.updateTimer();}, 1000);
+      const time = 0;
+      this.setState({ gameOn, startTime, timerInterval, time });
+    }
+  }
+
   uncoverCell (row, column) {
+    this.startGame();
     const field = this.state.field;
     if ( field[row][column].covered && !field[row][column].flag ) {
       field[row][column].covered = false;
@@ -99,6 +112,7 @@ class App extends Component {
   }
 
   flagCell (e, row, column) {
+    this.startGame();
     e.preventDefault();
     const field = this.state.field;
     if ( field[row][column].covered ) {
@@ -108,9 +122,13 @@ class App extends Component {
   }
 
   restart() {
-    this.setState({
-      field: this.generateField(this.state.height, this.state.width, this.state.mine_count)
-    });
+    const field = this.generateField(this.state.height, this.state.width, this.state.mine_count);
+    const gameOn = false;
+    const startTime = undefined;
+    const timerInterval = undefined;
+    const time = undefined;
+    clearInterval(this.state.timerInterval);
+    this.setState({ field, gameOn, startTime, time, timerInterval });
   }
 
   changeHeight(new_height) {
@@ -156,6 +174,7 @@ class App extends Component {
           value={this.state.mine_count}
           onChange={(e) => this.changeMineCount(e.target.value)}
         />
+        <span className="timer">{this.state.time}</span>
         <MineField
           height={this.state.height}
           width={this.state.width}
