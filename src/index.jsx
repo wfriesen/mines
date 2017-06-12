@@ -97,18 +97,28 @@ class App extends Component {
 
   uncoverCell (row, column) {
     this.startGame();
-    const field = this.state.field;
-    if ( field[row][column].covered && !field[row][column].flag ) {
-      field[row][column].covered = false;
-      if ( field[row][column].surrounding_mines == 0 ) {
-        this.getSurroundingCells(row, column, this.state.height, this.state.width).forEach((cell) => {
+    let field = this.state.field;
+
+    let cellsToUncover = [[row, column]];
+
+    let cellBeingChecked;
+    while ( cellBeingChecked = cellsToUncover.pop() ) {
+      const [currentRow, currentColumn] = cellBeingChecked;
+      if ( !field[currentRow][currentColumn].covered || field[row][column].flag) {
+        continue;
+      }
+
+      field[currentRow][currentColumn].covered = false;
+      if ( field[currentRow][currentColumn].surrounding_mines == 0 ) {
+        this.getSurroundingCells(currentRow, currentColumn, this.state.height, this.state.width).forEach((cell) => {
           if ( field[cell[0]][cell[1]].covered ) {
-            this.uncoverCell(cell[0], cell[1]);
+            cellsToUncover.push(cell);
           }
         });
       }
-      this.setState({field: field});
     }
+
+    this.setState({field});
   }
 
   flagCell (e, row, column) {
