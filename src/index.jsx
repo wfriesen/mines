@@ -142,26 +142,37 @@ class App extends Component {
     this.setState({ field, gameOn, startTime, time, timerInterval });
   }
 
+  tooManyMines(height, width, mine_count) {
+    return mine_count > (height * width);
+  }
+
   changeHeight(new_height) {
     const height = parseInt(new_height);
-    if ( !isNaN(height) ) {
-      const field = this.generateField(height, this.state.width, this.state.mine_count);
+    const width = this.state.width;
+    const mine_count = this.state.mine_count;
+
+    if ( !isNaN(height) && !this.tooManyMines(height, width, mine_count) ) {
+      const field = this.generateField(height, width, mine_count);
       this.setState({ height, field });
     }
   }
 
   changeWidth(new_width) {
+    const height = this.state.height;
     const width = parseInt(new_width);
-    if ( !isNaN(width) ) {
-      const field = this.generateField(this.state.height, width, this.state.mine_count);
+    const mine_count = this.state.mine_count;
+    if ( !isNaN(width) && !this.tooManyMines(height, width, mine_count) ) {
+      const field = this.generateField(height, width, mine_count);
       this.setState({ width, field });
     }
   }
 
   changeMineCount(new_mine_count) {
+    const height = this.state.height;
+    const width = this.state.width;
     const mine_count = parseInt(new_mine_count);
-    if ( !isNaN(mine_count) ) {
-      const field = this.generateField(this.state.height, this.state.width, mine_count);
+    if ( !isNaN(mine_count) && !this.tooManyMines(height, width, mine_count) ) {
+      const field = this.generateField(height, width, mine_count);
       this.setState({ mine_count, field });
     }
   }
